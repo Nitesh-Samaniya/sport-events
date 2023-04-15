@@ -17,6 +17,7 @@ import {
   TabPanel,
 } from '@chakra-ui/react'
 import { CgProfile } from 'react-icons/cg';
+import Signup from './Signup';
 
 function Account() {
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -35,7 +36,7 @@ function Account() {
         size={"md"}
       >
         <DrawerOverlay />
-        <DrawerContent height="70%  !important">
+        <DrawerContent height="74%  !important">
           <DrawerCloseButton />
           <DrawerHeader fontFamily={'cursive'} fontSize={'2xl'} color={'red'}>Sport Events</DrawerHeader>
 
@@ -43,15 +44,15 @@ function Account() {
               <Tabs size='md' variant='enclosed'>
 
                 <TabList>
-                  <Tab fontWeight="bold">Login</Tab>
                   <Tab fontWeight="bold">Signup</Tab>
+                  <Tab fontWeight="bold">Login</Tab>
                   <Tab fontWeight="bold">Logout</Tab>
                 </TabList>
 
                 <TabPanels>
 
                   <TabPanel>
-                    Signup
+                    <Signup />
                   </TabPanel>
 
                   <TabPanel>
