@@ -18,6 +18,7 @@ import {
 } from '@chakra-ui/react'
 import { CgProfile } from 'react-icons/cg';
 import Signup from './Signup';
+import Login from './Login';
 
 function Account() {
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -56,7 +57,7 @@ function Account() {
                   </TabPanel>
 
                   <TabPanel>
-                    Login
+                    <Login />
                   </TabPanel>
 
                   <TabPanel>
