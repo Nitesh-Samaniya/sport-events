@@ -9,6 +9,7 @@ const connect = require("./config/db");
 const PORT = process.env.PORT || 8080;
 
 const userRouter = require("./routes/user.route")
+const eventRouter = require("./routes/event.route");
 
 const app = express();
 app.use(express.json());
@@ -17,6 +18,7 @@ app.use(bodyparser.urlencoded({extended: false}));
 app.use(bodyparser.json());
 
 app.use("/user", userRouter);
+app.use("/event", eventRouter);
 
 mongoose.set("strictQuery", false);
 
