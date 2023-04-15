@@ -1,5 +1,6 @@
 import React from 'react'
 import { Box } from '@chakra-ui/react'
+import Account from '../account/Account'
 
 const Navbar = () => {
   return (
@@ -23,7 +24,7 @@ const Navbar = () => {
             gap={10} 
         >
             <Box>Create Event</Box>
-            <Box>Account</Box>
+            <Box><Account /></Box>
         </Box>
     </Box>
   )
