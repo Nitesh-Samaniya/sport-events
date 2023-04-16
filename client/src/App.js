@@ -24,7 +24,7 @@ const getEventList = async()=>{
 
   return (
     <div className="App">
-      <GetEventContext.Provider value={{eventList, getEventList}}>
+      <GetEventContext.Provider value={{eventList, getEventList, setEventList}}>
         <CreateEventContext.Provider value={{isOrganizerLoggedIn, setIsOrganizerLoggedIn}}>
           <Navbar/>
         </CreateEventContext.Provider>

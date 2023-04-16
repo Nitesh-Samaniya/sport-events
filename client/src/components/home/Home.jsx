@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Box, Button, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, SimpleGrid, Text, useDisclosure, useToast } from '@chakra-ui/react'
+import { Box, Button, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, SimpleGrid, Text, useDisclosure, useToast } from '@chakra-ui/react'
 import { GetEventContext } from '../../App'
 import axios from 'axios'
 
@@ -8,11 +8,12 @@ const initState = {
 }
 
 const Home = () => {
-  const {eventList, getEventList} = useContext(GetEventContext);
+  const {eventList, getEventList, setEventList} = useContext(GetEventContext);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [rowSeleted, setRowSelected] = useState(initState);
   const profile = JSON.parse(localStorage.getItem("sportEvent")) || "";
   const toast = useToast();
+  const [keyword, setKeyWord] = useState("");
 
   const handleJoinBtn = async(id)=>{
     if(!profile){
@@ -68,6 +69,24 @@ const Home = () => {
       );
   }
 
+  const handleSearch = async(e)=>{
+    e.preventDefault();
+    await axios.get(`https://sport-event-mdcf.onrender.com/event/search?keyword=${keyword}`)
+      .then((res)=>{
+        setEventList(res.data)
+      })
+      .catch((e)=>{
+        console.log(e)
+      })
+
+      setKeyWord("")
+  }
+
+  const getAllEvents = (e)=>{
+    e.preventDefault();
+    getEventList();
+  }
+
   useEffect(()=>{
     getEventList();
   },[])
@@ -75,6 +94,17 @@ const Home = () => {
   return (
     <Box w={'90%'} m={'auto'} mt={'100px'}>
       <Text fontFamily={'cursive'} fontSize={'3xl'} mb={10} color={'red'}>Events</Text>
+      <Box display={'flex'} gap={5} mb={10}>
+        <Input 
+          name='keyword'
+          value={keyword}
+          onChange={(e)=>setKeyWord(e.target.value)}
+          placeholder='Search by venue, event type, description or organizer name'
+        />
+        <Button onClick={handleSearch}>Search</Button>
+        <Button onClick={getAllEvents}>Get all Events</Button>
+        
+      </Box>
         <SimpleGrid columns={[1,1,1,3]} gap={10}>
           {
             eventList?.map((el)=>(
