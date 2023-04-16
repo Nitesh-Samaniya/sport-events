@@ -15,7 +15,7 @@ app.post("/", async(req,res)=> {
     try{
         let event = new EventModel({desc, date, venue, playersLimit, type, org_id, org_name, players});
         await event.save();
-        return res.status(201).send(event);
+        res.json(event);
     }catch(e){
         return res.status(500).send(e.message);
     }
@@ -32,19 +32,33 @@ app.put('/:id', async (req, res) => {
       if (!event) {
         return res.status(404).json({ message: 'Event not found' });
       }
-  
-      if (event.players.length >= event.playersLimit) {
-        return res.status(400).json({ message: 'Maximum player limit reached' });
-      }
-  
       event.players.push(player);
+
       await event.save();
       return res.status(201).send(event);
-    //   res.json(event);
     } catch (err) {
       console.error(err);
       res.status(500).json({ message: 'Server error' });
     }
+});
+
+app.get('/search', async (req, res) => {
+  const keyword = req.query.keyword;
+
+  try {
+    const results = await EventModel.find({
+      $or: [
+        { desc: { $regex: keyword, $options: 'i' } },
+        { venue: { $regex: keyword, $options: 'i' } },
+        { type: { $regex: keyword, $options: 'i' } },
+        { org_name: { $regex: keyword, $options: 'i' } }
+      ]
+    }).exec();
+
+    res.status(200).json(results);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 });
 
 module.exports = app;

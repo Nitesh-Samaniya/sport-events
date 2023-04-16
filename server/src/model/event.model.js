@@ -11,7 +11,6 @@ const EventSchema = new Schema({
 
     type: {
         type: String,
-        enum: ["cricket", "football", "Hockey", "Chess"],
         required: true
     }, 
 
