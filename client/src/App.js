@@ -8,12 +8,13 @@ export const CreateEventContext = createContext();
 export const GetEventContext = createContext();
 
 function App() {
-const [isOrganizerLoggedIn, setIsOrganizerLoggedIn] = useState(true);
+const [isOrganizerLoggedIn, setIsOrganizerLoggedIn] = useState(false);
 const [eventList, setEventList] = useState([]);
 
 const getEventList = async()=>{
   await axios.get("https://sport-event-mdcf.onrender.com/event")
     .then((res)=>{
+      console.log("check")
       setEventList(res.data)
     })
     .catch((e)=>{

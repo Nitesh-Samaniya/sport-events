@@ -100,7 +100,7 @@ const Login = () => {
         />
 
         <Button type='submit' mt={10} colorScheme='teal' size='md'>
-            Create Account
+            Login
         </Button>
         
       </form>
