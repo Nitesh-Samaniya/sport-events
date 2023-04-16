@@ -19,6 +19,7 @@ import {
 import { CgProfile } from 'react-icons/cg';
 import Signup from './Signup';
 import Login from './Login';
+import Logout from './Logout';
 
 function Account() {
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -61,7 +62,7 @@ function Account() {
                   </TabPanel>
 
                   <TabPanel>
-                    Logout
+                    <Logout />
                   </TabPanel>
 
                 </TabPanels>

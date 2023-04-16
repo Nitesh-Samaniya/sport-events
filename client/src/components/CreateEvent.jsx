@@ -13,13 +13,15 @@ import { Button,
     useToast
 } from "@chakra-ui/react"
 import axios from "axios";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { GetEventContext } from "../App";
 
 const profile = JSON.parse(localStorage.getItem("sportEvent")) || "";
 
 const initState = {
     desc: "",
     date: "",
+    venue: "",
     playersLimit: 0,
     type: "",
     org_id: profile.id,
@@ -29,7 +31,8 @@ const initState = {
 function CreateEvent() {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [eventDetail, setEventDetail] = useState(initState);
-    const toast = useToast()
+    const toast = useToast();
+    const {getEventList} = useContext(GetEventContext);
 
     const handleChange = (e)=>{
       const {name, value} = e.target;
@@ -54,6 +57,7 @@ function CreateEvent() {
       })
         .then((res) => {
             console.log(res.data);
+            getEventList();
             toast({
               title: 'Event Created Successfully.',
               status: 'success',
@@ -102,6 +106,14 @@ function CreateEvent() {
                     onChange={handleChange}  
                     mb={5} 
                     type="date"
+                  />
+
+                  <FormLabel>Venue</FormLabel>
+                  <Input
+                    name="venue"
+                    value={eventDetail.venue}
+                    onChange={handleChange}  
+                    mb={5} 
                   />
                   
                   <FormLabel>Player Limit</FormLabel>

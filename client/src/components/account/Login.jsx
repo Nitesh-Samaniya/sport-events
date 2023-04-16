@@ -42,7 +42,7 @@ const Login = () => {
             }
             
             toast({
-              title: 'Account Created Successfully.',
+              title: 'Login Successfully.',
               status: 'success',
               duration: 3000,
               isClosable: true,
