@@ -1,6 +1,7 @@
 import { Button, Input, useToast } from '@chakra-ui/react'
 import axios from "axios";
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { CreateEventContext } from '../../App';
 
 const initState = {
     email: "",
@@ -10,6 +11,7 @@ const initState = {
 const Login = () => {
     const [form, setForm] = useState(initState);
     const toast = useToast()
+    const {isOrganizerLoggedIn, setIsOrganizerLoggedIn} = useContext(CreateEventContext);
 
     const handleChange = (e)=>{
         const { name, value } = e.target;
@@ -33,7 +35,12 @@ const Login = () => {
         data: form
       })
         .then((res) => {
-            console.log(res.data);
+            localStorage.setItem("sportEvent", JSON.stringify(res.data));
+
+            if(res.data.role === "organizer"){
+              setIsOrganizerLoggedIn(!isOrganizerLoggedIn);
+            }
+            
             toast({
               title: 'Account Created Successfully.',
               status: 'success',
