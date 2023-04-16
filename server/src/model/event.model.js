@@ -4,6 +4,8 @@ const EventSchema = new Schema({
     desc: {type: String, required: true},
 
     date: {type: String, required: true},
+
+    venue: {type: String, required: true},
     
     playersLimit: {type: Number, required: true},
 

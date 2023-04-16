@@ -4,16 +4,16 @@ const EventModel = require("../model/event.model");
 const app = express.Router();
 
 app.get("/", async (req,res)=> {
-    const events = await EventModel.find();
+    const events = await EventModel.find().sort({createdAt: -1});
     return res.send(events)
 })
 
 app.post("/", async(req,res)=> {
-    let {desc, date, playersLimit, type, org_id, org_name} = req.body;
+    let {desc, date, venue, playersLimit, type, org_id, org_name} = req.body;
     let players = [];
 
     try{
-        let event = new EventModel({desc, date, playersLimit, type, org_id, org_name, players});
+        let event = new EventModel({desc, date, venue, playersLimit, type, org_id, org_name, players});
         await event.save();
         return res.status(201).send(event);
     }catch(e){
